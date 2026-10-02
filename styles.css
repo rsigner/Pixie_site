@@ -132,19 +132,6 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .button:hover { background: var(--ink); }
 
-/* Small rounded labels used for expertise tags and profile links */
-.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.tag {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 500;
-  line-height: 1.3;
-  padding: 0.3rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--paper);
-  color: var(--ink);
-}
 
 /* =========================================================
    4. MENU BAR
@@ -253,27 +240,60 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 /* =========================================================
-   7. EXPERTISE AND PUBLICATIONS (collapsible panels)
+   7. EXPERTISE AND PUBLICATIONS
+   One card per service. Experience and talks always show;
+   publications open and close.
    ========================================================= */
-.panels { display: grid; gap: 0.75rem; }
-.panel {
+.xp-cards { display: grid; gap: 1rem; }
+.xp-card {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  padding: clamp(1.25rem, 3vw, 2rem);
 }
-.panel summary {
+.xp-card h3 { margin-bottom: 0.25rem; }
+
+/* Standard sub-headings: Professional experience, Talks */
+.xp-card h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 1.25rem 0 0.25rem;
+}
+
+/* Selected publications: a row that expands */
+.pubs { margin-top: 1rem; border-top: 1px solid var(--line); }
+.pubs summary {
   list-style: none;
   cursor: pointer;
-  padding: 1.25rem clamp(1.25rem, 3vw, 2rem);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.75rem 1rem;
-  align-items: start;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
 }
-.panel summary::-webkit-details-marker { display: none; }
-.panel summary h3 { margin: 0; font-size: 1.2rem; }
-.panel summary .tags { grid-column: 1 / -1; }
+.pubs summary::-webkit-details-marker { display: none; }
+.pubs-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.pubs-count {
+  display: inline-block;
+  min-width: 1.5rem;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.pubs[open] .cites { margin-top: 0.25rem; }
 .panel-toggle {
+  flex: none;
   width: 2rem; height: 2rem;
   border-radius: 50%;
   border: 1px solid var(--line);
@@ -283,22 +303,10 @@ a:hover { text-decoration-thickness: 2px; }
   color: var(--accent);
   transition: transform 0.2s ease;
 }
-.panel[open] .panel-toggle { transform: rotate(45deg); }
-.panel summary:hover .panel-toggle { border-color: var(--accent); }
+.pubs[open] .panel-toggle { transform: rotate(45deg); }
+.pubs summary:hover .panel-toggle { border-color: var(--accent); }
 
-.panel-body {
-  padding: 0 clamp(1.25rem, 3vw, 2rem) 1.5rem;
-  border-top: 1px solid var(--line);
-}
-.panel-body h4 {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--muted);
-  margin: 1.5rem 0 0.25rem;
-}
-
-/* Citations: title on one line, short details beneath */
+/* Citations and experience lines: title, then short details */
 .cites li { padding-block: 0.75rem; border-bottom: 1px solid var(--line); }
 .cites li:last-child { border-bottom: 0; }
 .cite-title {
